@@ -6,7 +6,5 @@ obj/
 .vs/
 *.user
 
-# Dev secrets / environment-specific config
+# Development configuration
 appsettings.Development.json
-appsettings.*.json
-!appsettings.json
