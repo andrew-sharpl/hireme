@@ -158,13 +158,12 @@ The API will start on `http://localhost:5264` (or similar — check the terminal
 HireMe.API/
 ├── Controllers/        — API endpoints
 │   ├── AuthController.cs
-│   ├── JobsController.cs
+│   ├── JobController.cs
 │   └── InterestController.cs
 ├── Models/             — EF Core entities
 │   ├── User.cs
 │   ├── Job.cs
-│   ├── JobInterest.cs
-│   └── UserRole.cs
+│   └── JobInterest.cs
 ├── DTOs/               — Request/response objects
 │   ├── RegisterRequest.cs
 │   ├── LoginRequest.cs
