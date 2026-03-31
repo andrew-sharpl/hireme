@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using HireMe.API.Models;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace HireMe.API.DTOs;
 
