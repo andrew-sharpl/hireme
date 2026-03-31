@@ -8,3 +8,6 @@ obj/
 
 # Development configuration
 appsettings.Development.json
+
+# Other
+CLAUDE.md
