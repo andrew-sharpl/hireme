@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using HireMe.API.DTOs;
 using HireMe.API.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HireMe.API.Controllers;
 
