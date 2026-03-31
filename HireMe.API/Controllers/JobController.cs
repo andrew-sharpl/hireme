@@ -26,7 +26,7 @@ public class JobsController : ControllerBase
     public async Task<IActionResult> GetJobs([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? search = null)
     {
         var result = await _jobService.GetJobs(page, pageSize, search, GetUserId());
-        
+
         return Ok(result);
     }
 
@@ -36,8 +36,8 @@ public class JobsController : ControllerBase
         var result = await _jobService.GetJob(id, GetUserId());
 
         if (!result.Success)
-            return NotFound(new {error = result.Error});
-        
+            return NotFound(new { error = result.Error });
+
         return Ok(result.Data);
     }
 
@@ -48,7 +48,7 @@ public class JobsController : ControllerBase
         var result = await _jobService.CreateJob(request, GetUserId());
 
         if (!result.Success)
-            return BadRequest(new {error = result.Error});
+            return BadRequest(new { error = result.Error });
 
         return Ok(result.Data);
     }
@@ -60,7 +60,7 @@ public class JobsController : ControllerBase
         var result = await _jobService.UpdateJob(id, request, GetUserId());
 
         if (!result.Success)
-            return BadRequest(new {error = result.Error});
+            return BadRequest(new { error = result.Error });
 
         return Ok(result.Data);
     }
@@ -72,8 +72,8 @@ public class JobsController : ControllerBase
         var result = await _jobService.DeleteJob(id, GetUserId());
 
         if (!result.Success)
-            return BadRequest(new {error = result.Error});
+            return BadRequest(new { error = result.Error });
 
-        return Ok(new {message = "Job deleted successfully."});
+        return Ok(new { message = "Job deleted successfully." });
     }
 }

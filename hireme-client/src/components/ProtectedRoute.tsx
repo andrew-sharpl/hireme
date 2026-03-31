@@ -1,14 +1,14 @@
-import { type ReactNode } from 'react'
-import { Navigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
+import { type ReactNode } from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function ProtectedRoute({ children }: { children: ReactNode }) {
-  const { user } = useAuth()
+  const { user } = useAuth();
 
   // Sends unauthenticated user to login page
   if (!user) {
-    return <Navigate to="/login" replace />
+    return <Navigate to="/login" replace />;
   }
 
-  return <>{children}</>
+  return <>{children}</>;
 }

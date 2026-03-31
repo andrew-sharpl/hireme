@@ -9,21 +9,21 @@ InterestedUsers contains a list of records of which Users are interested in the 
 */
 public class Job
 {
-    public int Id {get; set;}
+    public int Id { get; set; }
 
     [Required]
     [MaxLength(50)]
-    public string Title {get; set;} = string.Empty;
+    public string Title { get; set; } = string.Empty;
 
     [Required]
     [MaxLength(10_000)]
-    public string Body {get; set;} = string.Empty;
+    public string Body { get; set; } = string.Empty;
 
-    public DateTime PostedAt {get; set;} = DateTime.UtcNow;
+    public DateTime PostedAt { get; set; } = DateTime.UtcNow;
 
 
-    public User PostedBy {get; set;} = null!;
-    public int PostedById {get; set;}
+    public User PostedBy { get; set; } = null!;
+    public int PostedById { get; set; }
 
-    public List<JobInterest> JobInterests {get; set;} = new();
+    public List<JobInterest> JobInterests { get; set; } = new();
 }

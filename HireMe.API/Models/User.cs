@@ -15,25 +15,25 @@ Contains a list of references to JobInterests the User is intererested in if the
 */
 public class User
 {
-    public int Id {get; set;}
+    public int Id { get; set; }
 
     [Required]
     [MaxLength(50)]
-    public string Username {get; set;} = string.Empty;
+    public string Username { get; set; } = string.Empty;
 
     [Required]
     [EmailAddress]
     [MaxLength(100)]
-    public string Email {get; set;} = string.Empty;
+    public string Email { get; set; } = string.Empty;
 
     [Required]
-    public string PasswordHash {get; set;} = string.Empty;
+    public string PasswordHash { get; set; } = string.Empty;
 
     [Required]
-    public UserRole Role {get; set;}
+    public UserRole Role { get; set; }
 
-    public DateTime CreatedAt {get; set;} = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    public List<Job> Jobs {get; set;} = new();
-    public List<JobInterest> JobInterests {get; set;} = new();
+    public List<Job> Jobs { get; set; } = new();
+    public List<JobInterest> JobInterests { get; set; } = new();
 }

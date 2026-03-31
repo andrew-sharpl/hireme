@@ -10,9 +10,9 @@ public class AppDbContext : DbContext
     }
 
     // Table creation
-    public DbSet<User> Users {get; set;}
-    public DbSet<Job> Jobs {get; set;}
-    public DbSet<JobInterest> JobInterests {get; set;}
+    public DbSet<User> Users { get; set; }
+    public DbSet<Job> Jobs { get; set; }
+    public DbSet<JobInterest> JobInterests { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -38,7 +38,7 @@ public class AppDbContext : DbContext
         .WithMany(u => u.JobInterests)
         .HasForeignKey(ji => ji.UserId)
         .OnDelete(DeleteBehavior.Cascade);
-        
+
         // Prevent a user from expressing interest in the same job twice.
         modelBuilder.Entity<JobInterest>()
         .HasIndex(ji => new { ji.JobId, ji.UserId })
@@ -50,5 +50,5 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<JobInterest>()
         .HasQueryFilter(ji => ji.Job.PostedAt > DateTime.UtcNow.AddMonths(-2));
-    }    
+    }
 }

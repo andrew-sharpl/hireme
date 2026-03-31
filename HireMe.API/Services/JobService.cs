@@ -65,7 +65,7 @@ public class JobService : IJobService
 
         if (job == null)
             return ServiceResult<JobResponse>.Fail("Job not found.");
-        
+
         return ServiceResult<JobResponse>.Ok(new JobResponse
         {
             Id = job.Id,

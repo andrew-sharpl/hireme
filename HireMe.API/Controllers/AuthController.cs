@@ -21,7 +21,7 @@ public class AuthController : ControllerBase
         var result = await _authService.Register(request);
 
         if (!result.Success)
-            return BadRequest(new {error = result.Error});
+            return BadRequest(new { error = result.Error });
 
         return Ok(result.Data);
     }
@@ -32,8 +32,8 @@ public class AuthController : ControllerBase
         var result = await _authService.Login(request);
 
         if (!result.Success)
-            return Unauthorized(new {error = result.Error});
-    
+            return Unauthorized(new { error = result.Error });
+
         return Ok(result.Data);
     }
 }

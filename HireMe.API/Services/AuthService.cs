@@ -49,7 +49,7 @@ public class AuthService : IAuthService
         });
     }
 
-        public async Task<ServiceResult<LoginResponse>> Login(LoginRequest request)
+    public async Task<ServiceResult<LoginResponse>> Login(LoginRequest request)
     {
         var user = await _context.Users
             .FirstOrDefaultAsync(u => u.Email == request.Email);

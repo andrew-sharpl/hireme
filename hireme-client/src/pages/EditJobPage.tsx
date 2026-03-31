@@ -1,3 +1,3 @@
 export default function EditJobPage() {
-  return <div>Login</div>
+  return <div>Login</div>;
 }

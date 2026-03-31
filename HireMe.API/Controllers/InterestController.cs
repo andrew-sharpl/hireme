@@ -29,9 +29,9 @@ public class InterestController : ControllerBase
         var result = await _jobService.ToggleInterest(jobId, GetUserId());
 
         if (!result.Success)
-            return NotFound(new {error = result.Error});
-        
-        return Ok(new {interested = result.Data});
+            return NotFound(new { error = result.Error });
+
+        return Ok(new { interested = result.Data });
     }
 
     [HttpPost("interested")]
@@ -41,8 +41,8 @@ public class InterestController : ControllerBase
         var result = await _jobService.GetInterestedUsers(jobId, GetUserId());
 
         if (!result.Success)
-            return BadRequest(new {error = result.Error});
-        
+            return BadRequest(new { error = result.Error });
+
         return Ok(result.Data);
     }
 }
