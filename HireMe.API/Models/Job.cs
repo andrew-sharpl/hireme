@@ -25,6 +25,5 @@ public class Job
     public User PostedBy {get; set;} = null!;
     public int PostedById {get; set;}
 
-    // 
-    public List<JobInterest> InterestedUsers {get; set;} = new();
+    public List<JobInterest> JobInterests {get; set;} = new();
 }
