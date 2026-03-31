@@ -7,7 +7,7 @@ namespace HireMe.API.Controllers;
 
 
 [ApiController]
-[Route("api/jobs/{jobid}")]
+[Route("api/jobs/{jobId}")]
 [Authorize]
 public class InterestController : ControllerBase
 {
