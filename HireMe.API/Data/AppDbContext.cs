@@ -39,12 +39,12 @@ public class AppDbContext : DbContext
         .HasForeignKey(ji => ji.UserId)
         .OnDelete(DeleteBehavior.Cascade);
         
-        // Prevent a user from expressing interest in the same job twice
+        // Prevent a user from expressing interest in the same job twice.
         modelBuilder.Entity<JobInterest>()
         .HasIndex(ji => new { ji.JobId, ji.UserId })
         .IsUnique();
 
-        // Auto-filter out jobs older than 2 months
+        // Auto-filter out jobs older than 2 months.
         modelBuilder.Entity<Job>()
         .HasQueryFilter(j => j.PostedAt > DateTime.UtcNow.AddMonths(-2));
 

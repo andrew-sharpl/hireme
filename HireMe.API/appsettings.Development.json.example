@@ -8,5 +8,11 @@
 
   "ConnectionStrings": {
     "DefaultConnection": "Server=localhost;Database=hireme;User=YOUR_USER;Password=YOUR_PASSWORD;"
+  },
+
+  "Jwt": {
+    "Key": "JTW_HASH_KEY_AT_LEAST_32_CHARACTERS",
+    "Issuer": "HireMe",
+    "Audience": "HireMe"
   }
 }
