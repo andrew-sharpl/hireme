@@ -21,11 +21,11 @@ public class AuthService : IAuthService
         _configuration = configuration;
     }
 
-    public async Task<LoginResponse?> Register(RegisterRequest request)
+    public async Task<ServiceResult<LoginResponse>> Register(RegisterRequest request)
     {
         // Check if email exists
         if (await _context.Users.AnyAsync(u => u.Email == request.Email))
-            return null;
+            return ServiceResult<LoginResponse>.Fail("Email is already registered");
 
 
         var user = new User
@@ -40,30 +40,30 @@ public class AuthService : IAuthService
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        return new LoginResponse
+        return ServiceResult<LoginResponse>.Ok(new LoginResponse
         {
             Token = GenerateToken(user),
             Username = user.Username,
             Email = user.Email,
             Role = user.Role.ToString()
-        };
+        });
     }
 
-        public async Task<LoginResponse?> Login(LoginRequest request)
+        public async Task<ServiceResult<LoginResponse>> Login(LoginRequest request)
     {
         var user = await _context.Users
             .FirstOrDefaultAsync(u => u.Email == request.Email);
 
         if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-            return null;
+            return ServiceResult<LoginResponse>.Fail("Invalid email or password");
 
-        return new LoginResponse
+        return ServiceResult<LoginResponse>.Ok(new LoginResponse
         {
             Token = GenerateToken(user),
             Username = user.Username,
             Email = user.Email,
             Role = user.Role.ToString()
-        };
+        });
     }
 
     private string GenerateToken(User user)
