@@ -8,7 +8,7 @@ A full-stack job booking platform built with ASP.NET Core, React, and MySQL. Pos
 - **Frontend:** React (Vite) + Material UI
 - **Database:** MySQL with Entity Framework Core (Pomelo provider)
 - **Authentication:** JWT Bearer tokens with role-based authorization
-- **Real-time:** SignalR (coming soon)
+- **Real-time:** SignalR (real-time notifications for job interest events)
 - **Language:** TypeScript (frontend)
 
 ## Features
@@ -20,6 +20,7 @@ A full-stack job booking platform built with ASP.NET Core, React, and MySQL. Pos
 - Posters can see which users are interested in their jobs
 - Jobs automatically hidden after 2 months
 - Role-based access control on all endpoints
+- Real-time notifications via SignalR — Posters are instantly notified when a Viewer expresses interest in their job
 
 ---
 
@@ -190,9 +191,11 @@ hireme-client/
 │   ├── components/         — Reusable UI components
 │   │   ├── Navbar.tsx
 │   │   ├── JobCard.tsx
-│   │   └── ProtectedRoute.tsx
+│   │   ├── ProtectedRoute.tsx
+│   │   └── SignalRListener.tsx
 │   ├── services/           — API call functions
-│   │   └── api.ts
+│   │   ├── api.ts
+│   │   └── signalrService.ts
 │   ├── context/            — React context (shared global state)
 │   │   └── AuthContext.tsx
 │   ├── App.tsx             — Routes + providers
@@ -207,6 +210,8 @@ HireMe.API/
 │   ├── AuthController.cs
 │   ├── JobController.cs
 │   └── InterestController.cs
+├── Hubs/               — SignalR hubs
+│   └── NotificationHub.cs
 ├── Models/             — EF Core entities
 │   ├── User.cs
 │   ├── Job.cs
