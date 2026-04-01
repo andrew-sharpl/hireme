@@ -22,7 +22,6 @@ export default function CreateJobPage() {
   }
 
   return (
-    
     <Box
       component="form"
       onSubmit={handleSubmit}

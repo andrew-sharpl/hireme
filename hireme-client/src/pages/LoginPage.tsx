@@ -1,6 +1,13 @@
 import { useState, type SyntheticEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { TextField, Button, Box, Typography, Alert, Paper } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Alert,
+  Paper,
+} from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import api from "../services/api";
 
@@ -27,52 +34,61 @@ export default function LoginPage() {
   }
 
   return (
-    <Paper elevation={3} sx={{maxWidth: 400, mx: "auto", mt: 8, p: 4, borderRadius: 3}}>
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      sx={{
-        maxWidth: 400,
-        mx: "auto",
-        mt: 8,
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-      }}
+    <Paper
+      elevation={3}
+      sx={{ maxWidth: 400, mx: "auto", mt: 8, p: 4, borderRadius: 3 }}
     >
-      <Typography variant="h3" textAlign="center" color="primary" fontWeight="bold" mb={4}>
-    HireMe
-</Typography>
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          maxWidth: 400,
+          mx: "auto",
+          mt: 8,
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+        }}
+      >
+        <Typography
+          variant="h3"
+          textAlign="center"
+          color="primary"
+          fontWeight="bold"
+          mb={4}
+        >
+          HireMe
+        </Typography>
 
-      <Typography variant="h4" textAlign="center">
-        Sign In
-      </Typography>
+        <Typography variant="h4" textAlign="center">
+          Sign In
+        </Typography>
 
-      {error && <Alert severity="error">{error}</Alert>}
+        {error && <Alert severity="error">{error}</Alert>}
 
-      <TextField
-        label="Email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <TextField
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
+        <TextField
+          label="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <TextField
+          label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
 
-      <Button type="submit" variant="contained" size="large">
-        Sign In
-      </Button>
+        <Button type="submit" variant="contained" size="large">
+          Sign In
+        </Button>
 
-      <Typography textAlign="center">
-        Don't have an account? <Link to="/register">Register</Link>
-      </Typography>
-    </Box>
+        <Typography textAlign="center">
+          Don't have an account? <Link to="/register">Register</Link>
+        </Typography>
+      </Box>
     </Paper>
   );
 }

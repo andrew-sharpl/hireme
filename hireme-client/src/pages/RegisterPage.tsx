@@ -49,74 +49,83 @@ export default function RegisterPage() {
   }
 
   return (
-    <Paper elevation={3} sx={{maxWidth: 400, mx: "auto", mt: 8, p: 4, borderRadius: 3}}>
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      sx={{
-        maxWidth: 400,
-        mx: "auto",
-        mt: 8,
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-      }}
+    <Paper
+      elevation={3}
+      sx={{ maxWidth: 400, mx: "auto", mt: 8, p: 4, borderRadius: 3 }}
     >
-      <Typography variant="h3" textAlign="center" color="primary" fontWeight="bold" mb={4}>
-    HireMe
-</Typography>
-
-      <Typography variant="h4" textAlign="center">
-        Create Account
-      </Typography>
-
-      {error && <Alert severity="error">{error}</Alert>}
-
-      <TextField
-        label="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        required
-      />
-      <TextField
-        label="Email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <TextField
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-      <TextField
-        label="Confirm Password"
-        type="password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        required
-      />
-      <TextField
-        label="Role"
-        select
-        value={role}
-        onChange={(e) => setRole(e.target.value)}
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          maxWidth: 400,
+          mx: "auto",
+          mt: 8,
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+        }}
       >
-        <MenuItem value={0}>Viewer</MenuItem>
-        <MenuItem value={1}>Poster</MenuItem>
-      </TextField>
+        <Typography
+          variant="h3"
+          textAlign="center"
+          color="primary"
+          fontWeight="bold"
+          mb={4}
+        >
+          HireMe
+        </Typography>
 
-      <Button type="submit" variant="contained" size="large">
-        Register
-      </Button>
+        <Typography variant="h4" textAlign="center">
+          Create Account
+        </Typography>
 
-      <Typography textAlign="center">
-        Already have an account? <Link to="/login">Sign In</Link>
-      </Typography>
-    </Box>
+        {error && <Alert severity="error">{error}</Alert>}
+
+        <TextField
+          label="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <TextField
+          label="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <TextField
+          label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <TextField
+          label="Confirm Password"
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
+        <TextField
+          label="Role"
+          select
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+        >
+          <MenuItem value={0}>Viewer</MenuItem>
+          <MenuItem value={1}>Poster</MenuItem>
+        </TextField>
+
+        <Button type="submit" variant="contained" size="large">
+          Register
+        </Button>
+
+        <Typography textAlign="center">
+          Already have an account? <Link to="/login">Sign In</Link>
+        </Typography>
+      </Box>
     </Paper>
   );
 }

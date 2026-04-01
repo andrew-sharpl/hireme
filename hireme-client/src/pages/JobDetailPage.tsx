@@ -123,26 +123,31 @@ export default function JobDetailPage() {
           {job.body}
         </Typography>
 
+        <Typography variant="body2" color="text.secondary" mb={1}>
+          {job.interestCount} interested
+        </Typography>
+
+        {isViewer && (
+          <Button
+            variant={job.isInterestedByCurrentUser ? "outlined" : "contained"}
+            color="secondary"
+            onClick={handleInterest}
+            sx={{ mb: 3 }}
+          >
+            {job.isInterestedByCurrentUser
+              ? "Remove Interest"
+              : "Express Interest"}
+          </Button>
+        )}
+
         <Box sx={{ display: "flex", gap: 2, mb: 3, flexWrap: "wrap" }}>
-          <Chip
-            label={`${job.interestCount} interested`}
-            color={job.isInterestedByCurrentUser ? "primary" : "default"}
-          />
-
-          {isViewer && (
-            <Button
-              variant={job.isInterestedByCurrentUser ? "outlined" : "contained"}
-              onClick={handleInterest}
-            >
-              {job.isInterestedByCurrentUser
-                ? "Remove Interest"
-                : "Express Interest"}
-            </Button>
-          )}
-
           {isOwner && (
             <>
-              <Button variant="outlined" component={Link} to={`/jobs/${id}/edit`}>
+              <Button
+                variant="outlined"
+                component={Link}
+                to={`/jobs/${id}/edit`}
+              >
                 Edit
               </Button>
               <Button variant="outlined" color="error" onClick={handleDelete}>

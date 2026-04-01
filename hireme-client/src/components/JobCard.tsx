@@ -4,7 +4,6 @@ import {
   CardActions,
   Typography,
   Button,
-  Chip,
   Box,
 } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -23,44 +22,50 @@ interface Job {
 }
 
 export default function JobCard({ job }: { job: Job }) {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const isViewer = user?.role === "Viewer";
 
   const [interested, setInterested] = useState(job.isInterestedByCurrentUser);
   const [interestCount, setInterestCount] = useState(job.interestCount);
 
-      async function handleInterest() {
-        try {
-            const response = await api.post(`/jobs/${job.id}/interest`);
-            setInterested(response.data.interested);
-            setInterestCount((prev) => prev + (response.data.interested ? 1 : -1));
-        } catch {
-            console.error("Failed to toggle interest");
-        }
+  async function handleInterest() {
+    try {
+      const response = await api.post(`/jobs/${job.id}/interest`);
+      setInterested(response.data.interested);
+      setInterestCount((prev) => prev + (response.data.interested ? 1 : -1));
+    } catch {
+      console.error("Failed to toggle interest");
     }
-
+  }
 
   return (
-    <Card sx={{ mb: 2, width: "100%", minHeight: 220, borderRadius: 2, boxShadow: 2 }}>
+    <Card
+      sx={{
+        mb: 2,
+        width: "100%",
+        minHeight: 220,
+        borderRadius: 2,
+        boxShadow: 2,
+      }}
+    >
       <CardContent>
         <Typography variant="h6">{job.title}</Typography>
         <Typography variant="body2" color="text.secondary" mb={1}>
           Posted by {job.postedByUsername} ·{" "}
           {new Date(job.postedAt).toLocaleDateString()}
         </Typography>
-        <Typography variant="body1" sx={{ mb: 2 }}>
+        <Typography variant="body1" sx={{ mb: 1 }}>
           {job.body.length > 200 ? job.body.slice(0, 200) + "..." : job.body}
         </Typography>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <Chip
-            label={`${interestCount} interested`}
-            size="small"
-            color={interested ? "primary" : "default"}
-          />
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          {interestCount} interested
+        </Typography>
+        <Box>
           {isViewer && (
             <Button
               size="small"
               variant={interested ? "outlined" : "contained"}
+              color="secondary"
               onClick={handleInterest}
             >
               {interested ? "Remove Interest" : "Express Interest"}

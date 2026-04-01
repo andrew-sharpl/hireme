@@ -15,13 +15,13 @@ const theme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#e6b65e",
+      main: "#1565c0",
     },
     secondary: {
-      main: "#9caf30",
+      main: "#FFBF00",
     },
     background: {
-      default: "#f0f4f8",
+      default: "#f5f7fa",
       paper: "#ffffff",
     },
   },
@@ -29,7 +29,7 @@ const theme = createTheme({
     fontFamily: '"Poppins", "Roboto", sans-serif',
     h4: { fontWeight: 700 },
     h6: { fontWeight: 600 },
-},
+  },
 });
 
 export default function App() {
