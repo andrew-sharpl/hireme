@@ -1,3 +1,76 @@
+import { useState, useEffect, type SyntheticEvent } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Box, TextField, Button, Typography, Alert } from "@mui/material";
+import api from "../services/api";
+
 export default function EditJobPage() {
-  return <div>Login</div>;
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    const [title, setTitle] = useState("");
+    const [body, setBody] = useState("");
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        async function fetchJob() {
+            try {
+                const response = await api.get(`/jobs/${id}`);
+                setTitle(response.data.title);
+                setBody(response.data.body);
+            } catch {
+                setError("Failed to load job.");
+            }
+        }
+        fetchJob();
+    }, [id]);
+
+    async function handleSubmit(e: SyntheticEvent) {
+        e.preventDefault();
+        setError("");
+        try {
+            await api.put(`/jobs/${id}`, { title, body });
+            navigate(`/jobs/${id}`);
+        } catch {
+            setError("Failed to update job. You may not have permission.");
+        }
+    }
+
+    return (
+        <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{
+                maxWidth: 600,
+                mx: "auto",
+                mt: 4,
+                px: 2,
+                display: "flex",
+                flexDirection: "column",
+                gap: 2,
+            }}
+        >
+            <Typography variant="h4">Edit Job</Typography>
+
+            {error && <Alert severity="error">{error}</Alert>}
+
+            <TextField
+                label="Job Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+            />
+            <TextField
+                label="Description"
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+                multiline
+                rows={6}
+                required
+            />
+
+            <Button type="submit" variant="contained" size="large">
+                Save Changes
+            </Button>
+        </Box>
+    );
 }
