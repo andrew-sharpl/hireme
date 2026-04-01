@@ -9,6 +9,7 @@ A full-stack job booking platform built with ASP.NET Core, React, and MySQL. Pos
 - **Database:** MySQL with Entity Framework Core (Pomelo provider)
 - **Authentication:** JWT Bearer tokens with role-based authorization
 - **Real-time:** SignalR (coming soon)
+- **Language:** TypeScript (frontend)
 
 ## Features
 
@@ -114,6 +115,28 @@ dotnet run
 
 The API will start on `http://localhost:5264` (or similar — check the terminal output). Visit `http://localhost:<port>/swagger` to explore and test the API endpoints.
 
+### 5. Run the frontend
+
+Navigate to the frontend directory:
+
+```bash
+cd hireme-client
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+The frontend will start on `http://localhost:5173`. Make sure the backend is also running.
+
 ---
 
 ## API Endpoints
@@ -140,7 +163,7 @@ The API will start on `http://localhost:5264` (or similar — check the terminal
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
 | POST | `/api/jobs/{id}/interest` | Viewer | Toggle interest on a job |
-| GET | `/api/jobs/{id}/interested` | Poster + owner | View interested users |
+| POST | `/api/jobs/{id}/interested` | Poster + owner | View interested users |
 
 ### Query Parameters for GET /api/jobs
 
@@ -153,6 +176,30 @@ The API will start on `http://localhost:5264` (or similar — check the terminal
 ---
 
 ## Project Structure
+
+```
+hireme-client/
+├── src/
+│   ├── pages/              — Full page components (one per route)
+│   │   ├── LoginPage.tsx
+│   │   ├── RegisterPage.tsx
+│   │   ├── JobListPage.tsx
+│   │   ├── JobDetailPage.tsx
+│   │   ├── CreateJobPage.tsx
+│   │   └── EditJobPage.tsx
+│   ├── components/         — Reusable UI components
+│   │   ├── Navbar.tsx
+│   │   ├── JobCard.tsx
+│   │   └── ProtectedRoute.tsx
+│   ├── services/           — API call functions
+│   │   └── api.ts
+│   ├── context/            — React context (shared global state)
+│   │   └── AuthContext.tsx
+│   ├── App.tsx             — Routes + providers
+│   └── main.tsx            — Entry point
+├── index.html
+└── vite.config.ts
+```
 
 ```
 HireMe.API/
