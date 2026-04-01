@@ -12,67 +12,67 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import SignalRListener from "./components/SignalRListener";
 
 const theme = createTheme({
-    palette: {
-        mode: "light",
-        primary: {
-            main: "#e6b65e",
-        },
-        secondary: {
-            main: "#9caf30",
-        },
-        background: {
-            default: "#f0f4f8",
-            paper: "#ffffff",
-        },
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#e6b65e",
     },
+    secondary: {
+      main: "#9caf30",
+    },
+    background: {
+      default: "#f0f4f8",
+      paper: "#ffffff",
+    },
+  },
 });
 
 export default function App() {
-    return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <AuthProvider>
-                <SignalRListener />
-                <BrowserRouter>
-                    <Navbar />
-                    <Routes>
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route path="/register" element={<RegisterPage />} />
-                        <Route
-                            path="/"
-                            element={
-                                <ProtectedRoute>
-                                    <JobListPage />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/jobs/create"
-                            element={
-                                <ProtectedRoute>
-                                    <CreateJobPage />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/jobs/:id"
-                            element={
-                                <ProtectedRoute>
-                                    <JobDetailPage />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/jobs/:id/edit"
-                            element={
-                                <ProtectedRoute>
-                                    <EditJobPage />
-                                </ProtectedRoute>
-                            }
-                        />
-                    </Routes>
-                </BrowserRouter>
-            </AuthProvider>
-        </ThemeProvider>
-    );
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <AuthProvider>
+        <SignalRListener />
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <JobListPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/jobs/create"
+              element={
+                <ProtectedRoute>
+                  <CreateJobPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/jobs/:id"
+              element={
+                <ProtectedRoute>
+                  <JobDetailPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/jobs/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <EditJobPage />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </ThemeProvider>
+  );
 }
