@@ -2,16 +2,20 @@ using Microsoft.EntityFrameworkCore;
 using HireMe.API.Data;
 using HireMe.API.DTOs;
 using HireMe.API.Models;
+using Microsoft.AspNetCore.SignalR;
+using HireMe.API.Hubs;
 
 namespace HireMe.API.Services;
 
 public class JobService : IJobService
 {
     private readonly AppDbContext _context;
+    private readonly IHubContext<NotificationHub> _hubContext;
 
-    public JobService(AppDbContext context)
+    public JobService(AppDbContext context, IHubContext<NotificationHub> hubContext)
     {
         _context = context;
+        _hubContext = hubContext;
     }
 
     public async Task<PagedResponse<JobResponse>> GetJobs(int page, int pageSize, string? search, int? currentUserId)
@@ -183,6 +187,12 @@ public class JobService : IJobService
         });
 
         await _context.SaveChangesAsync();
+
+        // Send notification to poster
+        await _context.Entry(job).Reference(j => j.PostedBy).LoadAsync();
+        var viewer = await _context.Users.FindAsync(userId);
+        await _hubContext.Clients.Group(job.PostedById.ToString())
+            .SendAsync("ReceiveNotification", $"{viewer!.Username} is interested in your job: {job.Title}.");
         return ServiceResult<bool>.Ok(true); // true = interest added
     }
 

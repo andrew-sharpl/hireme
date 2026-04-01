@@ -4,73 +4,73 @@ import { Box, TextField, Button, Typography, Alert } from "@mui/material";
 import api from "../services/api";
 
 export default function EditJobPage() {
-    const { id } = useParams();
-    const navigate = useNavigate();
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-    const [title, setTitle] = useState("");
-    const [body, setBody] = useState("");
-    const [error, setError] = useState("");
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+  const [error, setError] = useState("");
 
-    useEffect(() => {
-        async function fetchJob() {
-            try {
-                const response = await api.get(`/jobs/${id}`);
-                setTitle(response.data.title);
-                setBody(response.data.body);
-            } catch {
-                setError("Failed to load job.");
-            }
-        }
-        fetchJob();
-    }, [id]);
-
-    async function handleSubmit(e: SyntheticEvent) {
-        e.preventDefault();
-        setError("");
-        try {
-            await api.put(`/jobs/${id}`, { title, body });
-            navigate(`/jobs/${id}`);
-        } catch {
-            setError("Failed to update job. You may not have permission.");
-        }
+  useEffect(() => {
+    async function fetchJob() {
+      try {
+        const response = await api.get(`/jobs/${id}`);
+        setTitle(response.data.title);
+        setBody(response.data.body);
+      } catch {
+        setError("Failed to load job.");
+      }
     }
+    fetchJob();
+  }, [id]);
 
-    return (
-        <Box
-            component="form"
-            onSubmit={handleSubmit}
-            sx={{
-                maxWidth: 600,
-                mx: "auto",
-                mt: 4,
-                px: 2,
-                display: "flex",
-                flexDirection: "column",
-                gap: 2,
-            }}
-        >
-            <Typography variant="h4">Edit Job</Typography>
+  async function handleSubmit(e: SyntheticEvent) {
+    e.preventDefault();
+    setError("");
+    try {
+      await api.put(`/jobs/${id}`, { title, body });
+      navigate(`/jobs/${id}`);
+    } catch {
+      setError("Failed to update job. You may not have permission.");
+    }
+  }
 
-            {error && <Alert severity="error">{error}</Alert>}
+  return (
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{
+        maxWidth: 600,
+        mx: "auto",
+        mt: 4,
+        px: 2,
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+      }}
+    >
+      <Typography variant="h4">Edit Job</Typography>
 
-            <TextField
-                label="Job Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-            />
-            <TextField
-                label="Description"
-                value={body}
-                onChange={(e) => setBody(e.target.value)}
-                multiline
-                rows={6}
-                required
-            />
+      {error && <Alert severity="error">{error}</Alert>}
 
-            <Button type="submit" variant="contained" size="large">
-                Save Changes
-            </Button>
-        </Box>
-    );
+      <TextField
+        label="Job Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        required
+      />
+      <TextField
+        label="Description"
+        value={body}
+        onChange={(e) => setBody(e.target.value)}
+        multiline
+        rows={6}
+        required
+      />
+
+      <Button type="submit" variant="contained" size="large">
+        Save Changes
+      </Button>
+    </Box>
+  );
 }

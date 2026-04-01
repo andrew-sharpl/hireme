@@ -7,7 +7,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import api from "../services/api";
-import JobCard from "../components/JobCard"
+import JobCard from "../components/JobCard";
 
 interface Job {
   id: number;
