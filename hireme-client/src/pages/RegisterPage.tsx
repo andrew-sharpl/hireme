@@ -7,6 +7,7 @@ import {
   Typography,
   Alert,
   MenuItem,
+  Paper,
 } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import api from "../services/api";
@@ -48,6 +49,7 @@ export default function RegisterPage() {
   }
 
   return (
+    <Paper elevation={3} sx={{maxWidth: 400, mx: "auto", mt: 8, p: 4, borderRadius: 3}}>
     <Box
       component="form"
       onSubmit={handleSubmit}
@@ -60,6 +62,10 @@ export default function RegisterPage() {
         gap: 2,
       }}
     >
+      <Typography variant="h3" textAlign="center" color="primary" fontWeight="bold" mb={4}>
+    HireMe
+</Typography>
+
       <Typography variant="h4" textAlign="center">
         Create Account
       </Typography>
@@ -111,5 +117,6 @@ export default function RegisterPage() {
         Already have an account? <Link to="/login">Sign In</Link>
       </Typography>
     </Box>
+    </Paper>
   );
 }

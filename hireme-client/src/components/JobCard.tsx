@@ -21,7 +21,7 @@ interface Job {
 
 export default function JobCard({ job }: { job: Job }) {
   return (
-    <Card sx={{ mb: 2 }}>
+    <Card sx={{ mb: 2, width: "100%", minHeight: 220, borderRadius: 2, boxShadow: 2 }}>
       <CardContent>
         <Typography variant="h6">{job.title}</Typography>
         <Typography variant="body2" color="text.secondary" mb={1}>

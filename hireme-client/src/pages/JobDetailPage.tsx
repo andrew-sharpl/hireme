@@ -8,6 +8,7 @@ import {
   Divider,
   Alert,
   CircularProgress,
+  Paper,
 } from "@mui/material";
 import api from "../services/api";
 import { useAuth } from "../context/AuthContext";
@@ -109,58 +110,60 @@ export default function JobDetailPage() {
         ← Back to Listings
       </Button>
 
-      <Typography variant="h4" mb={1}>
-        {job.title}
-      </Typography>
-      <Typography variant="body2" color="text.secondary" mb={3}>
-        Posted by {job.postedByUsername} ·{" "}
-        {new Date(job.postedAt).toLocaleDateString()}
-      </Typography>
+      <Paper elevation={2} sx={{ p: 4, borderRadius: 2 }}>
+        <Typography variant="h4" mb={1}>
+          {job.title}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" mb={3}>
+          Posted by {job.postedByUsername} ·{" "}
+          {new Date(job.postedAt).toLocaleDateString()}
+        </Typography>
 
-      <Typography variant="body1" mb={3}>
-        {job.body}
-      </Typography>
+        <Typography variant="body1" mb={3}>
+          {job.body}
+        </Typography>
 
-      <Box sx={{ display: "flex", gap: 2, mb: 3, flexWrap: "wrap" }}>
-        <Chip
-          label={`${job.interestCount} interested`}
-          color={job.isInterestedByCurrentUser ? "primary" : "default"}
-        />
+        <Box sx={{ display: "flex", gap: 2, mb: 3, flexWrap: "wrap" }}>
+          <Chip
+            label={`${job.interestCount} interested`}
+            color={job.isInterestedByCurrentUser ? "primary" : "default"}
+          />
 
-        {isViewer && (
-          <Button
-            variant={job.isInterestedByCurrentUser ? "outlined" : "contained"}
-            onClick={handleInterest}
-          >
-            {job.isInterestedByCurrentUser
-              ? "Remove Interest"
-              : "Express Interest"}
-          </Button>
-        )}
+          {isViewer && (
+            <Button
+              variant={job.isInterestedByCurrentUser ? "outlined" : "contained"}
+              onClick={handleInterest}
+            >
+              {job.isInterestedByCurrentUser
+                ? "Remove Interest"
+                : "Express Interest"}
+            </Button>
+          )}
 
-        {isOwner && (
+          {isOwner && (
+            <>
+              <Button variant="outlined" component={Link} to={`/jobs/${id}/edit`}>
+                Edit
+              </Button>
+              <Button variant="outlined" color="error" onClick={handleDelete}>
+                Delete
+              </Button>
+            </>
+          )}
+        </Box>
+
+        {isOwner && interestedUsers.length > 0 && (
           <>
-            <Button variant="outlined" component={Link} to={`/jobs/${id}/edit`}>
-              Edit
-            </Button>
-            <Button variant="outlined" color="error" onClick={handleDelete}>
-              Delete
-            </Button>
+            <Divider sx={{ mb: 2 }} />
+            <Typography variant="h6" mb={1}>
+              Interested Users
+            </Typography>
+            {interestedUsers.map((username) => (
+              <Chip key={username} label={username} sx={{ mr: 1, mb: 1 }} />
+            ))}
           </>
         )}
-      </Box>
-
-      {isOwner && interestedUsers.length > 0 && (
-        <>
-          <Divider sx={{ mb: 2 }} />
-          <Typography variant="h6" mb={1}>
-            Interested Users
-          </Typography>
-          {interestedUsers.map((username) => (
-            <Chip key={username} label={username} sx={{ mr: 1, mb: 1 }} />
-          ))}
-        </>
-      )}
+      </Paper>
     </Box>
   );
 }

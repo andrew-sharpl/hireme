@@ -25,6 +25,11 @@ const theme = createTheme({
       paper: "#ffffff",
     },
   },
+  typography: {
+    fontFamily: '"Poppins", "Roboto", sans-serif',
+    h4: { fontWeight: 700 },
+    h6: { fontWeight: 600 },
+},
 });
 
 export default function App() {

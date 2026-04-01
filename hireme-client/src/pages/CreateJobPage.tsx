@@ -1,5 +1,5 @@
 import { useState, type SyntheticEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Box, TextField, Button, Typography, Alert } from "@mui/material";
 import api from "../services/api";
 
@@ -22,6 +22,7 @@ export default function CreateJobPage() {
   }
 
   return (
+    
     <Box
       component="form"
       onSubmit={handleSubmit}
@@ -35,6 +36,9 @@ export default function CreateJobPage() {
         gap: 2,
       }}
     >
+      <Button component={Link} to="/" sx={{ mb: 2 }}>
+        ← Back to Listings
+      </Button>
       <Typography variant="h4">Post a Job</Typography>
 
       {error && <Alert severity="error">{error}</Alert>}

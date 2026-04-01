@@ -54,7 +54,7 @@ export default function JobListPage() {
   }, [page, search]);
 
   return (
-    <Box sx={{ maxWidth: 800, mx: "auto", mt: 4, px: 2 }}>
+    <Box sx={{ maxWidth: 800, width: "100%", mx: "auto", mt: 4, px: 2 }}>
       <Typography variant="h4" mb={3}>
         Job Listings
       </Typography>
