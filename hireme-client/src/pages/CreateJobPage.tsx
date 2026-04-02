@@ -2,6 +2,7 @@ import { useState, type SyntheticEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Box, TextField, Button, Typography, Alert } from "@mui/material";
 import api from "../services/api";
+import SuccessSnackbar from "../components/SuccessSnackbar";
 
 export default function CreateJobPage() {
   const navigate = useNavigate();
@@ -9,13 +10,15 @@ export default function CreateJobPage() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   async function handleSubmit(e: SyntheticEvent) {
     e.preventDefault();
     setError("");
     try {
       await api.post("/jobs", { title, body });
-      navigate("/");
+      setSuccess(true); // Notify user of success
+      setTimeout(() => navigate("/"), 1500);
     } catch {
       setError("Failed to create job. Please try again.");
     }
@@ -60,6 +63,11 @@ export default function CreateJobPage() {
       <Button type="submit" variant="contained" size="large">
         Post Job
       </Button>
+      <SuccessSnackbar
+        open={success}
+        message="Job posted successfully!"
+        onClose={() => setSuccess(false)}
+      />
     </Box>
   );
 }

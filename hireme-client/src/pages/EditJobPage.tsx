@@ -2,6 +2,7 @@ import { useState, useEffect, type SyntheticEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, TextField, Button, Typography, Alert } from "@mui/material";
 import api from "../services/api";
+import SuccessSnackbar from "../components/SuccessSnackbar";
 
 export default function EditJobPage() {
   const { id } = useParams();
@@ -10,6 +11,7 @@ export default function EditJobPage() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     async function fetchJob() {
@@ -29,7 +31,8 @@ export default function EditJobPage() {
     setError("");
     try {
       await api.put(`/jobs/${id}`, { title, body });
-      navigate(`/jobs/${id}`);
+      setSuccess(true); // Notify user of success
+      setTimeout(() => navigate(`/jobs/${id}`), 1500);
     } catch {
       setError("Failed to update job. You may not have permission.");
     }
@@ -71,6 +74,11 @@ export default function EditJobPage() {
       <Button type="submit" variant="contained" size="large">
         Save Changes
       </Button>
+      <SuccessSnackbar
+        open={success}
+        message="Job edited successfully!"
+        onClose={() => setSuccess(false)}
+      />
     </Box>
   );
 }

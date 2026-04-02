@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import api from "../services/api";
 import { useAuth } from "../context/AuthContext";
+import SuccessSnackbar from "../components/SuccessSnackbar";
 
 interface Job {
   id: number;
@@ -32,6 +33,7 @@ export default function JobDetailPage() {
   const [interestedUsers, setInterestedUsers] = useState<string[]>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [success, setSuccess] = useState(false);
 
   const isOwner = user?.username === job?.postedByUsername;
   const isViewer = user?.role === "Viewer";
@@ -61,7 +63,8 @@ export default function JobDetailPage() {
     if (!confirm("Are you sure you want to delete this job?")) return;
     try {
       await api.delete(`/jobs/${id}`);
-      navigate("/");
+      setSuccess(true); // Notify user of success
+      setTimeout(() => navigate("/"), 1500);
     } catch {
       setError("Failed to delete job.");
     }
@@ -168,6 +171,11 @@ export default function JobDetailPage() {
             ))}
           </>
         )}
+        <SuccessSnackbar
+          open={success}
+          message="Job deleted successfully!"
+          onClose={() => setSuccess(false)}
+        />
       </Paper>
     </Box>
   );
