@@ -105,7 +105,12 @@ export default function LoginPage() {
           required
         />
 
-        <Button type="submit" color="secondary" variant="contained" size="large">
+        <Button
+          type="submit"
+          color="secondary"
+          variant="contained"
+          size="large"
+        >
           Sign In
         </Button>
 

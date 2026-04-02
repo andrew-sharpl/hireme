@@ -1,6 +1,13 @@
 import { useState, type SyntheticEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Box, TextField, Button, Typography, Alert, Paper } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Alert,
+  Paper,
+} from "@mui/material";
 import api from "../services/api";
 import SuccessSnackbar from "../components/SuccessSnackbar";
 
@@ -86,8 +93,12 @@ export default function CreateJobPage() {
           required
         />
 
-
-        <Button type="submit" variant="contained" size="large" color="secondary">
+        <Button
+          type="submit"
+          variant="contained"
+          size="large"
+          color="secondary"
+        >
           Post Job
         </Button>
       </Paper>

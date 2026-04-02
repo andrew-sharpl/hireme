@@ -1,6 +1,13 @@
 import { useState, useEffect, type SyntheticEvent } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { Box, TextField, Button, Typography, Alert, Paper } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Alert,
+  Paper,
+} from "@mui/material";
 import api from "../services/api";
 import SuccessSnackbar from "../components/SuccessSnackbar";
 
@@ -100,7 +107,12 @@ export default function EditJobPage() {
           required
         />
 
-        <Button type="submit" variant="contained" size="large" color="secondary">
+        <Button
+          type="submit"
+          variant="contained"
+          size="large"
+          color="secondary"
+        >
           Save Changes
         </Button>
       </Paper>

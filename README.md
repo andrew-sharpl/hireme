@@ -24,6 +24,33 @@ A full-stack job booking platform built with ASP.NET Core, React, and MySQL. Pos
 
 ---
 
+## Architecture
+
+```mermaid
+flowchart TD
+    A[React Frontend] -->|HTTP requests + JWT| B[ASP.NET Core API]
+    B --> C[AuthController]
+    B --> D[JobsController]
+    B --> E[InterestController]
+    C --> F[AuthService]
+    D --> G[JobService]
+    E --> G
+    F --> H[(MySQL Database)]
+    G --> H
+    G -->|SignalR notification| I[NotificationHub]
+    I -->|WebSocket| A
+```
+
+**Key design decisions:**
+- **Service layer pattern** — controllers are thin, all business logic lives in `AuthService` and `JobService`
+- **DTOs everywhere** — EF entities are never exposed directly to the client; requests and responses use dedicated DTO classes
+- **ServiceResult pattern** — service methods return `ServiceResult<T>` with `.Success`, `.Data`, and `.Error`, keeping error handling consistent across all endpoints
+- **Role-based authorization** — JWT claims include the user's role, enabling `[Authorize(Roles = "Poster")]` on protected endpoints
+- **Global query filter** — jobs older than 2 months are filtered out at the `DbContext` level so no endpoint can accidentally return stale listings
+- **SignalR group per user** — each Poster joins a SignalR group named after their user ID, so notifications are delivered privately when a Viewer expresses interest
+
+---
+
 ## Getting Started
 
 ### Prerequisites

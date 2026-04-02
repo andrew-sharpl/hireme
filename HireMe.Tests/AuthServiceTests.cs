@@ -72,29 +72,29 @@ public class AuthServiceTests
     }
 
     [Fact]
-public async Task Login_WithValidCredentials_ReturnsToken()
-{
-    var (_, service) = CreateSut(nameof(Login_WithValidCredentials_ReturnsToken));
-
-    await service.Register(new RegisterRequest
+    public async Task Login_WithValidCredentials_ReturnsToken()
     {
-        Username = "bob",
-        Email = "bob@example.com",
-        Password = "mypassword",
-        Role = UserRole.Poster
-    });
+        var (_, service) = CreateSut(nameof(Login_WithValidCredentials_ReturnsToken));
 
-    var result = await service.Login(new LoginRequest
-    {
-        Email = "bob@example.com",
-        Password = "mypassword"
-    });
+        await service.Register(new RegisterRequest
+        {
+            Username = "bob",
+            Email = "bob@example.com",
+            Password = "mypassword",
+            Role = UserRole.Poster
+        });
 
-    Assert.True(result.Success);
-    Assert.NotNull(result.Data);
-    Assert.Equal("bob", result.Data.Username);
-    Assert.Equal("Poster", result.Data.Role);
-}
+        var result = await service.Login(new LoginRequest
+        {
+            Email = "bob@example.com",
+            Password = "mypassword"
+        });
+
+        Assert.True(result.Success);
+        Assert.NotNull(result.Data);
+        Assert.Equal("bob", result.Data.Username);
+        Assert.Equal("Poster", result.Data.Role);
+    }
 
     [Fact]
     public async Task Login_WithWrongPassword_ReturnsError()
