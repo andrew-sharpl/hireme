@@ -1,6 +1,6 @@
 import { useState, useEffect, type SyntheticEvent } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Box, TextField, Button, Typography, Alert } from "@mui/material";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import { Box, TextField, Button, Typography, Alert, Paper } from "@mui/material";
 import api from "../services/api";
 import SuccessSnackbar from "../components/SuccessSnackbar";
 
@@ -31,7 +31,7 @@ export default function EditJobPage() {
     setError("");
     try {
       await api.put(`/jobs/${id}`, { title, body });
-      setSuccess(true); // Notify user of success
+      setSuccess(true);
       setTimeout(() => navigate(`/jobs/${id}`), 1500);
     } catch {
       setError("Failed to update job. You may not have permission.");
@@ -39,41 +39,48 @@ export default function EditJobPage() {
   }
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      sx={{
-        maxWidth: 600,
-        mx: "auto",
-        mt: 4,
-        px: 2,
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-      }}
-    >
-      <Typography variant="h4">Edit Job</Typography>
-
-      {error && <Alert severity="error">{error}</Alert>}
-
-      <TextField
-        label="Job Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-      />
-      <TextField
-        label="Description"
-        value={body}
-        onChange={(e) => setBody(e.target.value)}
-        multiline
-        rows={6}
-        required
-      />
-
-      <Button type="submit" variant="contained" size="large">
-        Save Changes
+    <Box sx={{ maxWidth: 900, width: "100%", mx: "auto", mt: 4, px: 2 }}>
+      <Button component={Link} to="/" sx={{ mb: 2 }}>
+        ← Back to Listings
       </Button>
+
+      <Paper
+        component="form"
+        onSubmit={handleSubmit}
+        elevation={2}
+        sx={{
+          p: 4,
+          borderRadius: 2,
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+        }}
+      >
+        <Typography variant="h4">Edit Job</Typography>
+
+        {error && <Alert severity="error">{error}</Alert>}
+
+        <TextField
+          label="Job Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+        <TextField
+          label="Description"
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+          multiline
+          rows={10}
+          required
+        />
+
+        <Button type="submit" variant="contained" size="large" color="secondary">
+          Save Changes
+        </Button>
+      </Paper>
+
       <SuccessSnackbar
         open={success}
         message="Job edited successfully!"

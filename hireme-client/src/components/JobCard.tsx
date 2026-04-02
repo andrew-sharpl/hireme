@@ -77,6 +77,11 @@ export default function JobCard({ job }: { job: Job }) {
         <Button size="small" component={Link} to={`/jobs/${job.id}`}>
           View Details
         </Button>
+        {user?.username === job.postedByUsername && (
+          <Button size="small" color="secondary" component={Link} to={`/jobs/${job.id}/edit`}>
+            Edit
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

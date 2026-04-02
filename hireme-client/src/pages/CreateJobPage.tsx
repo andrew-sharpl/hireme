@@ -1,6 +1,6 @@
 import { useState, type SyntheticEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Box, TextField, Button, Typography, Alert } from "@mui/material";
+import { Box, TextField, Button, Typography, Alert, Paper } from "@mui/material";
 import api from "../services/api";
 import SuccessSnackbar from "../components/SuccessSnackbar";
 
@@ -17,7 +17,7 @@ export default function CreateJobPage() {
     setError("");
     try {
       await api.post("/jobs", { title, body });
-      setSuccess(true); // Notify user of success
+      setSuccess(true);
       setTimeout(() => navigate("/"), 1500);
     } catch {
       setError("Failed to create job. Please try again.");
@@ -25,44 +25,48 @@ export default function CreateJobPage() {
   }
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      sx={{
-        maxWidth: 600,
-        mx: "auto",
-        mt: 4,
-        px: 2,
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-      }}
-    >
+    <Box sx={{ maxWidth: 900, width: "100%", mx: "auto", mt: 4, px: 2 }}>
       <Button component={Link} to="/" sx={{ mb: 2 }}>
         ← Back to Listings
       </Button>
-      <Typography variant="h4">Post a Job</Typography>
 
-      {error && <Alert severity="error">{error}</Alert>}
+      <Paper
+        component="form"
+        onSubmit={handleSubmit}
+        elevation={2}
+        sx={{
+          p: 4,
+          borderRadius: 2,
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+        }}
+      >
+        <Typography variant="h4">Post a Job</Typography>
 
-      <TextField
-        label="Job Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-      />
-      <TextField
-        label="Description"
-        value={body}
-        onChange={(e) => setBody(e.target.value)}
-        multiline
-        rows={6}
-        required
-      />
+        {error && <Alert severity="error">{error}</Alert>}
 
-      <Button type="submit" variant="contained" size="large">
-        Post Job
-      </Button>
+        <TextField
+          label="Job Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+        <TextField
+          label="Description"
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+          multiline
+          rows={10}
+          required
+        />
+
+        <Button type="submit" variant="contained" size="large" color="secondary">
+          Post Job
+        </Button>
+      </Paper>
+
       <SuccessSnackbar
         open={success}
         message="Job posted successfully!"
