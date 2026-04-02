@@ -9,11 +9,31 @@ export default function CreateJobPage() {
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [titleError, setTitleError] = useState("");
+  const [bodyError, setBodyError] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
+  function validate() {
+    let valid = true;
+    if (title.trim().length < 5) {
+      setTitleError("Title must be at least 5 characters.");
+      valid = false;
+    } else {
+      setTitleError("");
+    }
+    if (body.trim().length < 20) {
+      setBodyError("Description must be at least 20 characters.");
+      valid = false;
+    } else {
+      setBodyError("");
+    }
+    return valid;
+  }
+
   async function handleSubmit(e: SyntheticEvent) {
     e.preventDefault();
+    if (!validate()) return;
     setError("");
     try {
       await api.post("/jobs", { title, body });
@@ -51,6 +71,8 @@ export default function CreateJobPage() {
           label="Job Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          error={!!titleError}
+          helperText={titleError}
           required
         />
         <TextField
@@ -59,8 +81,11 @@ export default function CreateJobPage() {
           onChange={(e) => setBody(e.target.value)}
           multiline
           rows={10}
+          error={!!bodyError}
+          helperText={bodyError}
           required
         />
+
 
         <Button type="submit" variant="contained" size="large" color="secondary">
           Post Job
