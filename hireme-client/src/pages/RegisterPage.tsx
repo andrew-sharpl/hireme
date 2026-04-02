@@ -155,7 +155,7 @@ export default function RegisterPage() {
           <MenuItem value={1}>Poster</MenuItem>
         </TextField>
 
-        <Button type="submit" variant="contained" size="large">
+        <Button type="submit" color="secondary" variant="contained" size="large">
           Register
         </Button>
 
