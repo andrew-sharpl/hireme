@@ -89,7 +89,7 @@ export default function JobListPage() {
               count={totalPages}
               page={page}
               onChange={(_, value) => setPage(value)}
-              color="primary"
+              color="secondary"
             />
           </Box>
         </>

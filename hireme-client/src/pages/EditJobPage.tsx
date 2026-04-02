@@ -40,7 +40,7 @@ export default function EditJobPage() {
 
   return (
     <Box sx={{ maxWidth: 900, width: "100%", mx: "auto", mt: 4, px: 2 }}>
-      <Button component={Link} to="/" sx={{ mb: 2 }}>
+      <Button component={Link} to="/" color="secondary" sx={{ mb: 2 }}>
         ← Back to Listings
       </Button>
 

@@ -103,6 +103,7 @@ The JWT key must be at least 32 characters. The Issuer and Audience can be any m
 From the `HireMe.API` directory:
 
 ```bash
+dotnet restore
 dotnet ef database update
 ```
 

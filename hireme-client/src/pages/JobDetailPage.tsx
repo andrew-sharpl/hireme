@@ -109,7 +109,7 @@ export default function JobDetailPage() {
         </Alert>
       )}
 
-      <Button component={Link} to="/" sx={{ mb: 2 }}>
+      <Button component={Link} to="/" color="secondary" sx={{ mb: 2 }}>
         ← Back to Listings
       </Button>
 
