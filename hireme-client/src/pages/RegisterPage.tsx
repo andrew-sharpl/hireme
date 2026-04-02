@@ -21,17 +21,46 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("Viewer");
+  const [usernameError, setUsernameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [error, setError] = useState("");
+
+  function validate() {
+    let valid = true;
+    if (username.trim().length < 3) {
+      setUsernameError("Username must be at least 3 characters.");
+      valid = false;
+    } else {
+      setUsernameError("");
+    }
+    if (!email.trim()) {
+      setEmailError("Email is required.");
+      valid = false;
+    } else {
+      setEmailError("");
+    }
+    if (password.length < 6) {
+      setPasswordError("Password must be at least 6 characters.");
+      valid = false;
+    } else {
+      setPasswordError("");
+    }
+    if (password !== confirmPassword) {
+      setConfirmPasswordError("Passwords do not match.");
+      valid = false;
+    } else {
+      setConfirmPasswordError("");
+    }
+    return valid;
+  }
 
   async function handleSubmit(e: SyntheticEvent) {
     // Prevents browser from doing a full page reload on submit
     e.preventDefault();
+    if (!validate()) return;
     setError("");
-
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
 
     try {
       // Sends POST request to API
@@ -85,6 +114,8 @@ export default function RegisterPage() {
           label="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          error={!!usernameError}
+          helperText={usernameError}
           required
         />
         <TextField
@@ -92,6 +123,8 @@ export default function RegisterPage() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          error={!!emailError}
+          helperText={emailError}
           required
         />
         <TextField
@@ -99,6 +132,8 @@ export default function RegisterPage() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          error={!!passwordError}
+          helperText={passwordError}
           required
         />
         <TextField
@@ -106,6 +141,8 @@ export default function RegisterPage() {
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          error={!!confirmPasswordError}
+          helperText={confirmPasswordError}
           required
         />
         <TextField

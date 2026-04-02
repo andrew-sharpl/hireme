@@ -17,11 +17,31 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [error, setError] = useState("");
+
+  function validate() {
+    let valid = true;
+    if (!email.trim()) {
+      setEmailError("Email is required.");
+      valid = false;
+    } else {
+      setEmailError("");
+    }
+    if (!password) {
+      setPasswordError("Password is required.");
+      valid = false;
+    } else {
+      setPasswordError("");
+    }
+    return valid;
+  }
 
   async function handleSubmit(e: SyntheticEvent) {
     // Prevents browser from doing a full page reload on submit
     e.preventDefault();
+    if (!validate()) return;
     setError("");
     try {
       // Sends POST request to API
@@ -71,6 +91,8 @@ export default function LoginPage() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          error={!!emailError}
+          helperText={emailError}
           required
         />
         <TextField
@@ -78,6 +100,8 @@ export default function LoginPage() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          error={!!passwordError}
+          helperText={passwordError}
           required
         />
 
