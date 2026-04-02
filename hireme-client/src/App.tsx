@@ -7,6 +7,7 @@ import JobListPage from "./pages/JobListPage";
 import JobDetailPage from "./pages/JobDetailPage";
 import CreateJobPage from "./pages/CreateJobPage";
 import EditJobPage from "./pages/EditJobPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import SignalRListener from "./components/SignalRListener";
@@ -75,6 +76,7 @@ export default function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
