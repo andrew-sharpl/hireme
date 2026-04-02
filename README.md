@@ -140,6 +140,19 @@ The frontend will start on `http://localhost:5173`. Make sure the backend is als
 
 ---
 
+## Running Tests
+
+The backend test suite uses xUnit with an in-memory database — no MySQL connection required.
+
+From the repo root:
+
+```bash
+cd HireMe.Tests
+dotnet test
+```
+
+---
+
 ## API Endpoints
 
 ### Authentication (no token required)
